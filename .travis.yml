@@ -1,0 +1,9 @@
+sudo: required
+
+env:
+  - VERSION=0.9
+
+services:
+  - docker
+
+script: sudo tests/run.sh $VERSION
