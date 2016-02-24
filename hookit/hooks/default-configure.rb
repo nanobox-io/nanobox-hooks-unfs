@@ -89,4 +89,21 @@ if payload[:platform] != 'local'
     content payload[:ssh][:admin_key][:public_key]
   end
 
+  # Create some ssh host keys
+  execute "ssh-keygen -f /opt/gonano/etc/ssh/ssh_host_rsa_key -N '' -t rsa" do
+    not_if { ::File.exists? '/opt/gonano/etc/ssh/ssh_host_rsa_key' }
+  end
+
+  execute "ssh-keygen -f /opt/gonano/etc/ssh/ssh_host_dsa_key -N '' -t dsa" do
+    not_if { ::File.exists? '/opt/gonano/etc/ssh/ssh_host_dsa_key' }
+  end
+
+  execute "ssh-keygen -f /opt/gonano/etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa" do
+    not_if { ::File.exists? '/opt/gonano/etc/ssh/ssh_host_ecdsa_key' }
+  end
+
+  execute "ssh-keygen -f /opt/gonano/etc/ssh/ssh_host_ed25519_key -N '' -t ed25519" do
+    not_if { ::File.exists? '/opt/gonano/etc/ssh/ssh_host_ed25519_key' }
+  end
+
 end

@@ -4,7 +4,7 @@
 # set up persistance
 file "/etc/nanoinit.d/eth00" do
   content <<-EOF
-    ifconfig eth1:0 #{payload[:service][:ips][:default]}
+    ifconfig eth0:0 #{payload[:service][:ips][:default]}
   EOF
   mode 0755
 end
@@ -12,6 +12,6 @@ end
 # bring up interface
 execute "bring up vip" do
   command <<-EOF
-    ifconfig eth1:0 #{payload[:service][:ips][:default]}
+    ifconfig eth0:0 #{payload[:service][:ips][:default]}
   EOF
 end
