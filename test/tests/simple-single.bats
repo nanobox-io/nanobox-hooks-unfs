@@ -13,13 +13,13 @@ echo_lines() {
 }
 
 @test "Configure Local Container" {
-  run run_hook "simple-single-local" "default-configure" "$(payload default/configure-local)"
+  run run_hook "simple-single-local" "configure" "$(payload default/configure-local)"
   echo_lines
   [ "$status" -eq 0 ] 
 }
 
 @test "Start Local Unfs" {
-  run run_hook "simple-single-local" "default-start" "$(payload default/start)"
+  run run_hook "simple-single-local" "start" "$(payload default/start)"
   echo_lines
   [ "$status" -eq 0 ]
   # Verify
@@ -32,13 +32,13 @@ echo_lines() {
   run docker exec simple-single-local bash -c "mkdir -p /mnt/unfs"
   echo_lines
   [ "$status" -eq 0 ]
-  run docker exec simple-single-local bash -c "mount -t nfs -o rw,intr,proto=tcp,vers=3,nolock 192.168.0.2:/data/var/db/nfs /mnt/unfs"
+  run docker exec simple-single-local bash -c "mount -t nfs -o rw,intr,proto=tcp,vers=3,nolock 192.168.0.2:/data/var/db/unfs /mnt/unfs"
   echo_lines
   [ "$status" -eq 0 ]
 }
 
 @test "Insert Local Unfs Data" {
-  run docker exec "simple-single-local" bash -c "echo 'data' > /data/var/db/nfs/test.txt"
+  run docker exec "simple-single-local" bash -c "echo 'data' > /data/var/db/unfs/test.txt"
   echo_lines
   run docker exec "simple-single-local" bash -c "cat /mnt/unfs/test.txt"
   echo_lines
@@ -47,7 +47,7 @@ echo_lines() {
 }
 
 @test "Stop Local Unfs" {
-  run run_hook "simple-single-local" "default-stop" "$(payload default/stop)"
+  run run_hook "simple-single-local" "stop" "$(payload default/stop)"
   echo_lines
   [ "$status" -eq 0 ]
   while docker exec "simple-single-local" bash -c "ps aux | grep [u]nfsd"
@@ -69,13 +69,13 @@ echo_lines() {
 }
 
 @test "Configure Production Container" {
-  run run_hook "simple-single-production" "default-configure" "$(payload default/configure-production)"
+  run run_hook "simple-single-production" "configure" "$(payload default/configure-production)"
   echo_lines
   [ "$status" -eq 0 ] 
 }
 
 @test "Start Production Unfs" {
-  run run_hook "simple-single-production" "default-start" "$(payload default/start)"
+  run run_hook "simple-single-production" "start" "$(payload default/start)"
   echo_lines
   [ "$status" -eq 0 ]
   # Verify
@@ -88,13 +88,13 @@ echo_lines() {
   run docker exec simple-single-production bash -c "mkdir -p /mnt/unfs"
   echo_lines
   [ "$status" -eq 0 ]
-  run docker exec simple-single-production bash -c "mount -t nfs -o rw,intr,proto=tcp,vers=3,nolock 192.168.0.2:/data/var/db/nfs /mnt/unfs"
+  run docker exec simple-single-production bash -c "mount -t nfs -o rw,intr,proto=tcp,vers=3,nolock 192.168.0.2:/data/var/db/unfs /mnt/unfs"
   echo_lines
   [ "$status" -eq 0 ]
 }
 
 @test "Insert Production Unfs Data" {
-  run docker exec "simple-single-production" bash -c "echo 'data' > /data/var/db/nfs/test.txt"
+  run docker exec "simple-single-production" bash -c "echo 'data' > /data/var/db/unfs/test.txt"
   echo_lines
   run docker exec "simple-single-production" bash -c "cat /mnt/unfs/test.txt"
   echo_lines
@@ -103,7 +103,7 @@ echo_lines() {
 }
 
 @test "Stop Production Unfs" {
-  run run_hook "simple-single-production" "default-stop" "$(payload default/stop)"
+  run run_hook "simple-single-production" "stop" "$(payload default/stop)"
   echo_lines
   [ "$status" -eq 0 ]
   while docker exec "simple-single-production" bash -c "ps aux | grep [u]nfsd"
