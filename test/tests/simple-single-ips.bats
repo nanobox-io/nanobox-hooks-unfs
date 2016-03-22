@@ -1,5 +1,6 @@
 # source docker helpers
 . util/docker.sh
+. util/service.sh
 
 echo_lines() {
   for (( i=0; i < ${#lines[*]}; i++ ))
@@ -12,24 +13,24 @@ echo_lines() {
   start_container "simple-single" "192.168.0.2"
 }
 
-@test "Vip Up" {
-  run run_hook "simple-single" "ip-add" "$(payload default/ip-add)"
+@test "IP Up" {
+  run run_hook "simple-single" "ip-add" "$(payload ip-add)"
   echo_lines
   [ "$status" -eq 0 ]
 }
 
-@test "Verify Vip" {
+@test "Verify IP" {
   run docker exec simple-single bash -c "ifconfig | grep 192.168.0.3"
   [ "$status" -eq 0 ] 
 }
 
-@test "Vip Down" {
-  run run_hook "simple-single" "ip-remove" "$(payload default/ip-remove)"
+@test "IP Down" {
+  run run_hook "simple-single" "ip-remove" "$(payload ip-remove)"
   echo_lines
   [ "$status" -eq 0 ]
 }
 
-@test "Verify No Vip" {
+@test "Verify No IP" {
   run docker exec simple-single bash -c "ifconfig | grep 192.168.0.3"
   [ "$status" -eq 1 ] 
 }

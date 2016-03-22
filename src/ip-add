@@ -7,19 +7,17 @@ require 'bundler/setup'
 # load hookit/setup to bootstrap hookit and import the dsl
 require 'hookit/setup'
 
-if payload[:member][:type] == 'default'
-  # set up persistance
-  file "/etc/nanoinit.d/eth00" do
-    content <<-EOF
-      ifconfig eth0:0 #{payload[:ips][:default]}
-    EOF
-    mode 0755
-  end
+# set up persistance
+file "/etc/nanoinit.d/eth00" do
+  content <<-EOF
+    ifconfig eth0:0 #{payload[:ips][:default]}
+  EOF
+  mode 0755
+end
 
-  # bring up interface
-  execute "bring up vip" do
-    command <<-EOF
-      ifconfig eth0:0 #{payload[:ips][:default]}
-    EOF
-  end
+# bring up interface
+execute "bring up vip" do
+  command <<-EOF
+    ifconfig eth0:0 #{payload[:ips][:default]}
+  EOF
 end

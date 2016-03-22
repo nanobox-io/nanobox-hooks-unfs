@@ -7,45 +7,43 @@ require 'bundler/setup'
 # load hookit/setup to bootstrap hookit and import the dsl
 require 'hookit/setup'
 
-if payload[:member][:type] == 'default'
-  # Import rpcbind service (and start)
-  directory '/etc/service/rpcbind' do
-    recursive true
-  end
+# Import rpcbind service (and start)
+directory '/etc/service/rpcbind' do
+  recursive true
+end
 
-  template '/etc/service/rpcbind/run' do
-    mode 0755
-    source 'run-root.erb'
-    variables ({ exec: "rpcbind -f" })
-  end
+template '/etc/service/rpcbind/run' do
+  mode 0755
+  source 'run-root.erb'
+  variables ({ exec: "rpcbind -f" })
+end
 
-  # Import storage service (and start)
-  directory '/etc/service/storage' do
-    recursive true
-  end
+# Import storage service (and start)
+directory '/etc/service/storage' do
+  recursive true
+end
 
-  directory '/etc/service/storage/log' do
-    recursive true
-  end
+directory '/etc/service/storage/log' do
+  recursive true
+end
 
-  template '/etc/service/storage/log/run' do
-    mode 0755
-    source 'log-run.erb'
-    variables ({ svc: "storage" })
-  end
+template '/etc/service/storage/log/run' do
+  mode 0755
+  source 'log-run.erb'
+  variables ({ svc: "storage" })
+end
 
-  template '/etc/service/storage/run' do
-    mode 0755
-    variables ({ exec: "/data/sbin/unfsd -d 2>&1" })
-  end
+template '/etc/service/storage/run' do
+  mode 0755
+  variables ({ exec: "/data/sbin/unfsd -d 2>&1" })
+end
 
-  service 'storage' do
-    action :enable
-    init :runit
-  end
+service 'storage' do
+  action :enable
+  init :runit
+end
 
-  ensure_socket 'storage' do
-    port '2049'
-    action :listening
-  end
+ensure_socket 'storage' do
+  port '2049'
+  action :listening
 end

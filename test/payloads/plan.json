@@ -1,2 +1,5 @@
 {
+  "logtap_host": "127.0.0.1",
+  "uid": "unfs1",
+  "platform": "production"
 }

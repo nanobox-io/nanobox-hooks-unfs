@@ -7,7 +7,6 @@ require 'bundler/setup'
 # load hookit/setup to bootstrap hookit and import the dsl
 require 'hookit/setup'
 
-
 service 'storage' do
   action :disable
   init :runit
