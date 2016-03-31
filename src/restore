@@ -8,5 +8,5 @@ require 'bundler/setup'
 require 'hookit/setup'
 
 execute "retrieve data from backup container" do
-  command "ssh -o StrictHostKeyChecking=no #{payload[:backup][:local_ip]} 'cat /data/var/db/unfs/#{payload[:backup][:backup_id]}.tgz' | tar -C / -zxf -"
+  command "ssh -o StrictHostKeyChecking=no #{payload[:warehouse][:host]} 'cat /data/var/db/unfs/#{payload[:warehouse][:backup_id]}.tgz' | tar -C / -zxf -"
 end
