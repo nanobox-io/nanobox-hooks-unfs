@@ -10,7 +10,7 @@ all: stable
 .PHONY: test
 
 test:
-	test/run_all.sh 0.9
+	stdbuf -oL test/run_all.sh 0.9
 
 .PHONY: stable beta alpha
 
