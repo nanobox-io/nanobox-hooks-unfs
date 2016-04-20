@@ -32,7 +32,7 @@ verify_stopped() {
   container=$1
   run docker exec ${container} bash -c "ps aux | grep [u]nfsd"
   echo_lines
-  [ "$status" -eq 1 ] 
+  [ "$status" -eq 1 ]
 }
 
 insert_test_data() {
@@ -79,9 +79,11 @@ verify_plan() {
   [ "${lines[6]}" = "    \"default\"" ]
   [ "${lines[7]}" = "  ]," ]
   [ "${lines[8]}" = "  \"port\": 2049," ]
-  [ "${lines[9]}" = "  \"behaviors\": [" ]
-  [ "${lines[10]}" = "    \"migratable\"," ]
-  [ "${lines[11]}" = "    \"backupable\"" ]
-  [ "${lines[12]}" = "  ]" ]
-  [ "${lines[13]}" = "}" ]
+  [ "${lines[9]}" = "  \"mount_protocol\": \"nfs\"," ]
+  [ "${lines[10]}" = "  \"behaviors\": [" ]
+  [ "${lines[11]}" = "    \"migratable\"," ]
+  [ "${lines[12]}" = "    \"backupable\"," ]
+  [ "${lines[13]}" = "    \"mountable\"" ]
+  [ "${lines[14]}" = "  ]" ]
+  [ "${lines[15]}" = "}" ]
 }
