@@ -10,17 +10,21 @@ require 'hookit/setup'
 service 'storage' do
   action :disable
   init :runit
+  not_if { !Dir.exist?('/etc/service/storage') }
 end
 
 service 'rpcbind' do
   action :disable
   init :runit
+  not_if { !Dir.exist?('/etc/service/rpcbind') }
 end
 
 directory '/etc/service/rpcbind' do
   action :delete
+  not_if { !Dir.exist?('/etc/service/rpcbind') }
 end
 
 directory '/etc/service/storage' do
   action :delete
+  not_if { !Dir.exist?('/etc/service/storage') }
 end
