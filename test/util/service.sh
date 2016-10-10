@@ -70,20 +70,29 @@ verify_test_data() {
 }
 
 verify_plan() {
-  [ "${lines[0]}" = "{" ]
-  [ "${lines[1]}" = "  \"redundant\": false," ]
-  [ "${lines[2]}" = "  \"horizontal\": false," ]
-  [ "${lines[3]}" = "  \"users\": [" ]
-  [ "${lines[4]}" = "  ]," ]
-  [ "${lines[5]}" = "  \"ips\": [" ]
-  [ "${lines[6]}" = "    \"default\"" ]
-  [ "${lines[7]}" = "  ]," ]
-  [ "${lines[8]}" = "  \"port\": 2049," ]
-  [ "${lines[9]}" = "  \"mount_protocol\": \"nfs\"," ]
-  [ "${lines[10]}" = "  \"behaviors\": [" ]
-  [ "${lines[11]}" = "    \"migratable\"," ]
-  [ "${lines[12]}" = "    \"backupable\"," ]
-  [ "${lines[13]}" = "    \"mountable\"" ]
-  [ "${lines[14]}" = "  ]" ]
-  [ "${lines[15]}" = "}" ]
+  expected=$(cat <<-END
+{
+  "redundant": false,
+  "horizontal": false,
+  "users": [
+    {
+      "username": "gonano",
+      "meta": {
+      }
+    }
+  ],
+  "ips": [
+    "default"
+  ],
+  "port": 2049,
+  "mount_protocol": "nfs",
+  "behaviors": [
+    "migratable",
+    "backupable",
+    "mountable"
+  ]
+}
+END
+)
+  [ "$output" = "$expected" ]
 }

@@ -20,6 +20,10 @@
     }
   },
   "users": [
-
+    {
+      "username": "gonano",
+      "password": "password",
+      "meta": {}
+    }
   ]
 }
