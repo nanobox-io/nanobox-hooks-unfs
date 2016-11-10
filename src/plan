@@ -14,7 +14,7 @@ plan = {
   horizontal: false,
   users: [{username: "gonano", meta: {}}],
   ips: [:default],
-  port: 2049,
+  port: 22,
   mount_protocol: :nfs,
   behaviors: [:migratable, :backupable, :mountable]
 }
