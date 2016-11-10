@@ -84,7 +84,7 @@ verify_plan() {
   "ips": [
     "default"
   ],
-  "port": 2049,
+  "port": 22,
   "mount_protocol": "nfs",
   "behaviors": [
     "migratable",
