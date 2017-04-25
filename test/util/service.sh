@@ -74,6 +74,7 @@ verify_plan() {
 {
   "redundant": false,
   "horizontal": false,
+  "user": "gonano",
   "users": [
     {
       "username": "gonano",
