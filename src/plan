@@ -12,6 +12,7 @@ require 'json'
 plan = {
   redundant: false,
   horizontal: false,
+  user: "gonano",
   users: [{username: "gonano", meta: {}}],
   ips: [:default],
   port: 22,
